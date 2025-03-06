@@ -127,8 +127,6 @@ export default {
         { name: "Product", path: "/product" },
         { name: "About", path: "/about" },
         { name: "Services", path: "/services" },
-        { name: "Blog", path: "/blog" },
-        { name: "FAQ", path: "/faq" },
         { name: "Contact", path: "/contact" },
       ]
     };

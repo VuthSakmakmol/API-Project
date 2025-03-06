@@ -1,54 +1,75 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
-    <div class="container mx-auto py-12 px-6">
-      <h1 class="text-4xl font-bold text-gray-800 text-center mb-8">About Us</h1>
-      <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-        We are a passionate team of architects and designers committed to creating timeless, innovative, and sustainable architectural solutions.
-      </p>
+  <div class="min-h-screen bg-gray-100 py-12 mt-15">
+    <div class="container mx-auto px-6 md:px-12 lg:px-24">
+      <!-- About Us -->
+      <h1 class="text-4xl font-bold text-center text-gray-900">About Us</h1>
+      <p class="text-center text-gray-600 mt-4">{{ about.vision }}</p>
 
-      <!-- About Section -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Our Team Section -->
+      <div class="mt-12 flex flex-col md:flex-row items-center">
+        <img :src="about.team.image" alt="Our Team" class="w-80 h-auto object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8" />
         <div>
-          <img src="https://source.unsplash.com/600x400/?architecture,team" alt="Our Team" class="rounded-lg shadow-lg">
-        </div>
-        <div>
-          <h2 class="text-3xl font-semibold text-gray-800">Our Vision</h2>
-          <p class="text-gray-600 mt-4">
-            We believe that architecture is not just about buildings—it's about creating spaces that inspire, connect, and enhance lives. Our designs combine functionality, aesthetics, and sustainability to meet the needs of the modern world.
-          </p>
+          <h2 class="text-2xl font-semibold">{{ about.team.title }}</h2>
+          <p class="text-gray-600 mt-2">{{ about.team.description }}</p>
         </div>
       </div>
 
-      <!-- Core Values -->
-      <div class="mt-16">
-        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">Our Core Values</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-            <img src="https://img.icons8.com/ios-filled/100/000000/green-energy.png" class="mx-auto mb-4" alt="Sustainability">
-            <h3 class="text-xl font-semibold text-gray-800">Sustainability</h3>
-            <p class="text-gray-600 mt-2">We prioritize eco-friendly designs that harmonize with nature.</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-            <img src="https://img.icons8.com/ios-filled/100/000000/idea.png" class="mx-auto mb-4" alt="Innovation">
-            <h3 class="text-xl font-semibold text-gray-800">Innovation</h3>
-            <p class="text-gray-600 mt-2">We push the boundaries of design and technology to create cutting-edge solutions.</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-            <img src="https://img.icons8.com/ios-filled/100/000000/handshake.png" class="mx-auto mb-4" alt="Client Satisfaction">
-            <h3 class="text-xl font-semibold text-gray-800">Client Satisfaction</h3>
-            <p class="text-gray-600 mt-2">We work closely with our clients to bring their visions to life.</p>
-          </div>
+      <!-- Our Core Values -->
+      <h2 class="text-3xl font-bold text-center mt-12">Our Core Values</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div
+          v-for="(value, index) in about.coreValues"
+          :key="index"
+          class="bg-white p-6 rounded-lg shadow-lg text-center"
+        >
+          <img
+            :src="value.image"
+            alt="Core Value Image"
+            class="w-24 h-24 object-cover mx-auto rounded-full mb-4"
+          />
+          <h3 class="text-xl font-semibold">{{ value.title }}</h3>
+          <p class="text-gray-600 mt-2">{{ value.description }}</p>
         </div>
       </div>
 
-      <!-- Contact Section -->
-      <div class="text-center mt-16">
-        <h2 class="text-3xl font-semibold text-gray-800">Want to Work With Us?</h2>
-        <p class="text-gray-600 mt-2">Let's build something amazing together.</p>
-        <router-link to="/contact" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-          Contact Us
-        </router-link>
+
+      <!-- Call to Action -->
+      <div class="text-center mt-12">
+        <h2 class="text-2xl font-semibold">{{ about.contactCTA.text }}</h2>
+        
+        <a :href="about.contactCTA.link" target="_blank" rel="noopener noreferrer"
+          class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">
+            {{ about.contactCTA.buttonLabel }}
+        </a>
+
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+const about = ref({
+  vision: "",
+  team: { title: "", description: "", image: "" },
+  coreValues: [],
+  contactCTA: { text: "", buttonLabel: "", link: "" }
+});
+
+const fetchAboutData = async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/api/about");
+    about.value = response.data;
+  } catch (error) {
+    console.error("❌ Error fetching About Us data:", error);
+  }
+};
+
+onMounted(fetchAboutData);
+</script>
+
+<style scoped>
+/* Add any additional styling if needed */
+</style>

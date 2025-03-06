@@ -1,20 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
+
 import About from '../views/About.vue';
+import AboutEdit from "../views/AboutEdit.vue"; 
+
 import Login from '../views/Login.vue';
 import AdminDashboard from '../views/AdminDashboard.vue';
 import Services from '../views/Services.vue';
+
 import Product from '../views/Product.vue';
 import ProductDetail from "../views/ProductDetail.vue";
 import ProductEdit from "../views/ProductEdit.vue";
-import Blog from '../views/Blog.vue';
-import FAQ from '../views/FAQ.vue';
+
 import Contact from '../views/Contact.vue';
 import Register from '../views/Register.vue';
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/about', component: About },
+  
   { path: '/login', component: Login },
   { 
     path: '/admin/dashboard', 
@@ -25,11 +28,13 @@ const routes = [
   { path: "/product/:name", component: ProductDetail },
   { path: "/product/:name/edit", component: ProductEdit },
 
+  { path: '/about', component: About },
+  { path: "/admin/about-edit", component: AboutEdit },
+
+
 
   { path: '/services', component: Services },
   { path: '/product', component: Product },
-  { path: '/blog', component: Blog },
-  { path: '/faq', component: FAQ },
   { path: '/contact', component: Contact },
   { path: '/register', component: Register }
 ];

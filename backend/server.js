@@ -6,6 +6,7 @@ const homeRoutes = require("./routes/homeRoutes");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require('./routes/adminRoutes');
 const productRoutes = require("./routes/productRoutes");
+const aboutRoutes = require("./routes/aboutRoutes");
 
 
 const app = express(); // ✅ FIXED: Moved `app` initialization to the top
@@ -25,6 +26,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/homepage", homeRoutes);
 app.use("/api", productRoutes);
+app.use("/api/about", aboutRoutes);
 
 
 

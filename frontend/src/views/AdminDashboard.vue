@@ -2,6 +2,21 @@
   <div class="min-h-screen bg-gray-100 p-6 pt-24">
     <h1 class="text-3xl font-semibold mb-6">Admin Dashboard</h1>
 
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-6">
+        <h2 class="text-xl font-bold mb-2">About Us</h2>
+        <p class="text-sm text-gray-600">Manage About Us details</p>
+        <button 
+  @click="$router.push('/admin/about-edit')"
+  class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+>
+  Edit About Us
+</button>
+
+
+      </div> <br>
+
+
+
     <!-- ============================= -->
     <!-- HOME MANAGEMENT SECTION -->
     <!-- ============================= -->
@@ -58,15 +73,16 @@
     <!-- ============================= -->
 
     <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-6">
-      <h2 class="text-xl font-bold mb-2">Products</h2>
-      <p class="text-sm text-gray-600">Manage product details</p>
-      <button 
-        @click="openProductListModal" 
-        class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-      >
-        Edit Products
-      </button>
-    </div>
+  <h2 class="text-xl font-bold mb-2">Products</h2>
+  <p class="text-sm text-gray-600">Manage product details</p>
+  <button 
+    @click="openProductListModal"
+    class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+  >
+    Edit Products
+  </button>
+</div>
+
 
     <!-- Product List Modal -->
     <div v-if="isProductListModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 pt-20">
