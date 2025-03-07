@@ -43,6 +43,10 @@
         Save Changes
       </button>
     </div>
+
+    <!-- Loading and Error states -->
+    <div v-if="isLoading" class="text-center mt-4">Loading...</div>
+    <div v-if="errorMessage" class="text-center mt-4 text-red-500">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -58,6 +62,8 @@ export default {
       coreValues: [],
       contactCTA: { text: "", buttonLabel: "", link: "" },
     });
+    const isLoading = ref(true);
+    const errorMessage = ref(null);
 
     // Fetch About Data
     const fetchAboutData = async () => {
@@ -68,22 +74,32 @@ export default {
         }
       } catch (error) {
         console.error("❌ Error fetching About Us data:", error);
+        errorMessage.value = "Failed to load About Us data. Please try again later.";
+      } finally {
+        isLoading.value = false;
       }
     };
 
     // Update About Us
     const updateAbout = async () => {
       try {
+        if (!aboutData.value.vision || !aboutData.value.team.title) {
+          errorMessage.value = "Please fill all required fields.";
+          return;
+        }
+
         await axios.put("http://localhost:5000/api/about", aboutData.value);
         alert("✅ About Us updated successfully!");
+        errorMessage.value = null; // Clear any previous error message
       } catch (error) {
         console.error("❌ Error updating About Us:", error);
+        errorMessage.value = "Failed to save About Us data. Please try again.";
       }
     };
 
     onMounted(fetchAboutData);
 
-    return { aboutData, updateAbout };
+    return { aboutData, updateAbout, isLoading, errorMessage };
   },
 };
 </script>
@@ -93,3 +109,4 @@ export default {
   background: rgba(0, 0, 0, 0.5);
 }
 </style>
+  

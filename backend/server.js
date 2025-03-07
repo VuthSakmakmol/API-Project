@@ -2,11 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require("cors");
-const homeRoutes = require("./routes/homeRoutes");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require('./routes/adminRoutes');
 const productRoutes = require("./routes/productRoutes");
 const aboutRoutes = require("./routes/aboutRoutes");
+const contactRoutes = require("./routes/contactRoute");
+const serviceRoutes = require("./routes/serviceRoute"); 
+const logoRoutes = require("./routes/logoRoute");
+const homeRoutes = require("./routes/homeRoute");
 
 
 const app = express(); // ✅ FIXED: Moved `app` initialization to the top
@@ -24,9 +27,13 @@ connectDB();
 // ✅ Ensure routes are correctly set
 app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/homepage", homeRoutes);
+app.use("/api/home", homeRoutes);
 app.use("/api", productRoutes);
 app.use("/api/about", aboutRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/logo", logoRoutes);
+
 
 
 
